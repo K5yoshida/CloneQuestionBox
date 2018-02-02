@@ -1,0 +1,13 @@
+# 「.DS_Store」や「._.DS_Store」を除外
+*.DS_Store
+.idea/*
+
+Docker/Mysql/*
+docker-compose.yml
+
+/share/phinx.yml
+/share/.env
+/share/vendor/*
+/share/src/cache/*
+
+!.gitkeep

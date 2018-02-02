@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  app:
+    depends_on:
+      - db
+    build: ./Docker/build/app
+    ports:
+      - "80:80"
+    volumes:
+      - '.:/var/www/html'
+    links:
+      - db
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: BzHSGDBv2fya
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: BzHSGDBv2fya
+      MYSQL_DATABASE: database
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: BzHSGDBv2fya
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./Docker/Mysql:/var/lib/mysql"

@@ -1,0 +1,18 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "Controller/",
+            "Database\\": "database/",
+            "Di\\": "src/DI/",
+            "Service\\": "Service/",
+            "Util\\": "Util/"
+        }
+    },
+    "require": {
+        "slim/slim": "^3.8",
+        "vlucas/phpdotenv": "^2.4",
+        "robmorgan/phinx": "^0.9.1",
+        "rubellum/slim-blade-view": "^0.1.1",
+        "j4mie/paris": "^1.5"
+    }
+}

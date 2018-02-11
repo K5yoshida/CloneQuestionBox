@@ -24,7 +24,7 @@ $log->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::DEBUG)
 $config = PhinxConfig::fromYaml(__DIR__ . '/../phinx.yml');
 $sqlData = $config->getEnvironments();
 
-ORM::configure("mysql:dbname={$sqlData['production']['name']};host={$sqlData['production']['host']};charset=utf8");
+ORM::configure("mysql:dbname={$sqlData['production']['name']};host={$sqlData['production']['host']};charset=utf8mb4");
 ORM::configure('username', $sqlData['production']['user']);
 ORM::configure('password', $sqlData['production']['pass']);
 

@@ -23,7 +23,8 @@ git clone https://github.com/syoou/CloneQuestionBox.git
 ## 環境変数の設定
 
 cp docker-compose.sample docker-compose.yml    
-cp share/phinx.yml.sample share/phinx.yml   
+cp share/phinx.yml.sample share/phinx.yml      
+cp share/.env.sample share/.env     
 
 プログラムの改変は必要ありませんが、環境変数の設定をする必要があります。     
 上記のコマンドを実行後、shareファイルの中の.envを編集します。
@@ -44,6 +45,12 @@ docker-compose exec app a2enmod rewrite
 docker-compose exec app service apache2 restart    
 docker-compose up -d    
 docker-compose exec app ./composer.phar install    
+docker-compose exec app bash
+./vendor/bin/phinx migrate
+
+
+## もしエラーフが出た場合
+docker logs -f [コンテナID]
 
 ## License
 MIT

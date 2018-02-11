@@ -7,7 +7,7 @@ environments:
     default_database: development
     production:
         adapter: mysql
-        host: docker_db_1
+        host: clonequestionbox_db_1
         name: database
         user: root
         pass: 'BzHSGDBv2fya'
@@ -16,7 +16,7 @@ environments:
 
     development:
         adapter: mysql
-        host: docker_db_1
+        host: clonequestionbox_db_1
         name: development_db
         user: root
         pass: 'BzHSGDBv2fya'
@@ -25,7 +25,7 @@ environments:
 
     testing:
         adapter: mysql
-        host: docker_db_1
+        host: clonequestionbox_db_1
         name: testing_db
         user: root
         pass: 'BzHSGDBv2fya'

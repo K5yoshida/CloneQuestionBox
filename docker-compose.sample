@@ -6,7 +6,7 @@ services:
       - db
     build: ./Docker/build/app
     ports:
-      - "127.0.0.1:80:80"
+      - "80:80"
     volumes:
       - '.:/var/www/html'
     links:
@@ -22,6 +22,6 @@ services:
       MYSQL_USER: dbuser
       MYSQL_PASSWORD: BzHSGDBv2fya
     ports:
-      - "127.0.0.1:3306:3306"
+      - "3306:3306"
     volumes:
       - "./Docker/Mysql:/var/lib/mysql"

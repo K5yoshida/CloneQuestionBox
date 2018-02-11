@@ -3,7 +3,7 @@
         "psr-4": {
             "Controller\\": "Controller/",
             "Database\\": "database/",
-            "Di\\": "src/DI/",
+            "Di\\": "src/Di/",
             "Service\\": "Service/",
             "Util\\": "Util/",
             "Exception\\": "Exception/"

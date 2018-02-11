@@ -38,7 +38,7 @@ class MessageController
     {
         /*csrfの判別*/
         if (false === $request->getAttribute('csrf_status')) {
-            return $this->app->response->withRedirect('/error', 301);
+            return $this->app->view->render($this->app->response, 'error');
         }
         $userInfo = $this->getUserRepository()->getUserData($request->getAttribute('name'));
         $path = $this->getImageUtil()->makeMessageImage($request->getParsedBody()['message']);
@@ -115,7 +115,7 @@ class MessageController
         $getVars = $request->getParsedBody();
         /*csrfの判別*/
         if (false === $request->getAttribute('csrf_status')) {
-            return $this->app->response->withRedirect('/error', 301);
+            return $this->app->view->render($this->app->response, 'error');
         }
         if ($this->getUserSessionUtil()->loginExist()) {
             $message = $this->getMessageRepository()->updateSendMessage($request->getAttribute('hash'), $getVars['message']);

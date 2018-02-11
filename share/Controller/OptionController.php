@@ -60,7 +60,7 @@ class OptionController
     {
         /*csrfの判別*/
         if (false === $request->getAttribute('csrf_status')) {
-            return $this->app->response->withRedirect('/error', 301);
+            return $this->app->view->render($this->app->response, 'error');
         }
         if ($this->getUserSessionUtil()->loginExist()) {
             $this->getUserRepository()->updateUserData($_SESSION['user_id'], $this->app->request->getParsedBody());

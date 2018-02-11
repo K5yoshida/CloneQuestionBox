@@ -9,7 +9,7 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{getenv('APP_NAME')}}" />
-    <meta name="twitter:description" content="このサイトは{{getenv('APP_NAME')}}です。" />
+    <meta name="twitter:description" content="このサイトは{{getenv('APP_NAME')}}です" />
     <meta name="twitter:image" content="{{getenv('APP_URL') . '/message/' . $message->image_path}}" />
 @endsection
 

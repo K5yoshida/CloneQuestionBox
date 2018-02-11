@@ -2,6 +2,18 @@
 
 @section('title',  'メインページ')
 
+
+@section('ogp')
+    <meta property="og:title" content="{{getenv('APP_NAME')}}" />
+    <meta property="og:url" content="{{getenv('APP_URL') . '/' . $userInfo->screen_name}}" />
+    <meta property="og:image" content="{{getenv('APP_URL') . '/img/main_image.png'}}" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{getenv('APP_NAME')}}" />
+    <meta name="twitter:description" content="{{'@' . $userInfo->screen_name}}さんの{{getenv('APP_NAME')}}です" />
+    <meta name="twitter:image" content="{{getenv('APP_URL') . '/img/main_image.png'}}" />
+@endsection
+
 @section('css')
     <link rel="stylesheet" href="{{assets('css/userHome.css')}}">
     <link rel="stylesheet" href="{{assets('css/home.css')}}">

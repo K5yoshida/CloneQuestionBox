@@ -8,6 +8,8 @@
 
 require(__DIR__. '/../vendor/autoload.php');
 
+require_once(__DIR__ . '/../src/Helper.php');
+
 require_once(__DIR__ . '/../src/Settings.php');
 
 require_once(__DIR__ . '/../src/Routes.php');

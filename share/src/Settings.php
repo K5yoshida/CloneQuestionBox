@@ -6,12 +6,19 @@
  * Time: 23:59
  */
 
-//use Dotenv\Dotenv;
+use Dotenv\Dotenv;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Phinx\Config\Config as PhinxConfig;
 use Slim\Views\Blade;
+session_start();
+date_default_timezone_set('Asia/Tokyo');
 
-//$dotenv = new Dotenv(__DIR__ . '/../');
-//$dotenv->load();
+$dotenv = new Dotenv(__DIR__ . '/../');
+$dotenv->load();
+$log = new Logger('cool-php-libraries');
+$log->pushHandler(new StreamHandler(__DIR__ . '/../logs/app.log', Logger::DEBUG));
+
 $configuration = [
     'settings' => [
         'displayErrorDetails' => true,
@@ -26,7 +33,7 @@ $configuration = [
 $config = PhinxConfig::fromYaml(__DIR__ . '/../phinx.yml');
 $sqlData = $config->getEnvironments();
 
-ORM::configure("mysql:dbname=dev;host={$sqlData['production']['host']};charset=utf8");
+ORM::configure("mysql:dbname={$sqlData['production']['name']};host={$sqlData['production']['host']};charset=utf8");
 ORM::configure('username', $sqlData['production']['user']);
 ORM::configure('password', $sqlData['production']['pass']);
 
@@ -34,6 +41,16 @@ $c = new \Slim\Container($configuration);
 $slimApp = new \Slim\App($c);
 
 $container = $slimApp->getContainer();
+
+$container['csrf'] = function ($c) {
+    $guard = new \Slim\Csrf\Guard();
+    $guard->setFailureCallable(function ($request, $response, $next) {
+        $request = $request->withAttribute("csrf_status", false);
+        return $next($request, $response);
+    });
+    return $guard;
+};
+
 // Register Blade View helper
 $container['view'] = function ($container) {
     return new Blade(
@@ -41,3 +58,11 @@ $container['view'] = function ($container) {
         $container['settings']['renderer']['blade_cache_path']
     );
 };
+
+$c['notFoundHandler'] = function ($c) {
+    return function ($request, $response) use ($c) {
+        return $c['view']->render($response, 'error');
+    };
+};
+
+//$container['errorHandler'] = require_once(__DIR__ . '/ErrorHandler.php');

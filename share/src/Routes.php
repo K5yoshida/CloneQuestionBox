@@ -6,9 +6,28 @@
  * Time: 0:01
  */
 
-use Controller\HelloController;
+use Controller\HomeController;
+use Controller\LoginController;
+use Controller\MessageController;
+use Controller\OptionController;
+use Controller\UserHomeController;
 
-$slimApp->get('/', HelloController::class . ':index');
+$slimApp->add($container->get('csrf'));
+
+$slimApp->get('/', HomeController::class . ':index');
+$slimApp->get('/{name}', UserHomeController::class . ':index');
+$slimApp->get('/post/{hash}', MessageController::class . ':postMessage');
+$slimApp->get('/user/option', OptionController::class . ':index');
+$slimApp->get('/user/message', MessageController::class .':messageList');
+$slimApp->get('/user/message/answer', MessageController::class .':answerMessageList');
+
+$slimApp->get('/auth/twitter', LoginController::class . ':index');
+$slimApp->get('/auth/twitter/callback', LoginController::class . ':callback');
+$slimApp->get('/auth/twitter/logout', LoginController::class . ':logout');
+
+$slimApp->post('/{name}/message', MessageController::class . ':index');
+$slimApp->post('/post/{hash}/answer', MessageController::class . ':answerMessagePost');
+$slimApp->post('/user/option/post', OptionController::class . ':post');
 
 /**実行部分*/
 $slimApp->run();

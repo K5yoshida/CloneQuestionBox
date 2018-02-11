@@ -9,5 +9,7 @@ docker-compose.yml
 /share/.env
 /share/vendor/*
 /share/src/cache/*
-
+/share/public/user/*
+/share/public/message/*
+/share/logs/*
 !.gitkeep

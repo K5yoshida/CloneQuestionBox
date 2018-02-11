@@ -5,12 +5,12 @@
 @section('ogp')
     <meta property="og:title" content="{{getenv('APP_NAME')}}" />
     <meta property="og:url" content="{{getenv('APP_URL') . '/post' . $message->hash}}" />
-    <meta property="og:image" content="{{$message->image_path}}" />
+    <meta property="og:image" content="{{getenv('APP_URL') . '/message/' . $message->image_path}}" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{getenv('APP_NAME')}}" />
     <meta name="twitter:description" content="このサイトは{{getenv('APP_NAME')}}です。" />
-    <meta name="twitter:image" content="{{$message->image_path}}" />
+    <meta name="twitter:image" content="{{getenv('APP_URL') . '/message/' . $message->image_path}}" />
 @endsection
 
 @section('css')
@@ -28,7 +28,7 @@
         @if($message->send_flog == 1)
             <div>{{$message->answer_text}}</div>
         @endif
-        <img src="{{$message->image_path}}">
+        <img src="{{getenv('APP_URL') . '/message/' . $message->image_path}}">
     </div>
     @if($loginUserExist && $message->send_flog == 0)
     <div class="answer">質問に回答しよう</div>

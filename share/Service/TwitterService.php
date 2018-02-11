@@ -74,8 +74,10 @@ class TwitterService
     {
         try {
             if ($_SESSION['oauth_token'] == $oauthToken and $oauthVerifier) {
-                $connection = $this->getTwitterOAuth($this->consumerKey, $this->consumerSecret, $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
-                $accessToken = $connection->oauth('oauth/access_token', array('oauth_token' => $oauthToken, 'oauth_verifier' => $oauthVerifier));
+                $connection = $this->getTwitterOAuth($this->consumerKey, $this->consumerSecret,
+                    $_SESSION['oauth_token'], $_SESSION['oauth_token_secret']);
+                $accessToken = $connection->oauth('oauth/access_token',
+                    array('oauth_token' => $oauthToken, 'oauth_verifier' => $oauthVerifier));
                 $_SESSION = array();
                 return $accessToken;
             } else {
@@ -101,12 +103,21 @@ class TwitterService
         return $twitterUserInfo;
     }
 
-    public function postTwit(string $message)
+    public function postTwit(array $message)
     {
         $userInfo = $this->getUserRepository()->getUserInfo($_SESSION['user_id']);
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userInfo->access_token,
             $userInfo->access_token_secret);
-        $connection->post("statuses/update", array("status" => $message));
+        if ($message['type'] === 'image') {
+            $media = $connection->upload('media/upload', ['media' => __DIR__ . '/../public/message/' . $message['path']]);
+            $parameters = [
+                "status" => $message,
+                'media_ids' => implode(',', [$media->media_id_string])
+            ];
+            $connection->post("statuses/update", $parameters);
+        } else {
+            $connection->post("statuses/update", array("status" => $message));
+        }
         if (!($connection->getLastHttpCode() == 200)) {
             $this->getLoggerUtil()->setTwitterLog();
             throw new TwitterOAuthException('ツイッターツイートエラー');

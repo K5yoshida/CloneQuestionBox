@@ -76,7 +76,7 @@ class ImageUtil
             $headMessage->destroy();
             $mixImage->destroy();
 
-            return getenv('APP_URL') . "/message/$filename";
+            return $filename;
         } catch (Exception $e) {
             $this->getLoggerUtil()->setImagickLog();
             throw $e;

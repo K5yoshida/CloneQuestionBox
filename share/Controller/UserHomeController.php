@@ -34,7 +34,6 @@ class UserHomeController
      * ユーザホームを生成する
      * @param Request $request
      * @return Response
-     * @Todo もしユーザが存在しなかった時の処理を追加する $userInfo = false
      */
     public function index(Request $request): Response
     {

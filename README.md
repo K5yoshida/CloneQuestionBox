@@ -34,9 +34,9 @@ cp share/.env.sample share/.env
 CONSUMER_KEY       *ツイッターAPPのキー     
 CONSUMER_SECRET    *ツイッターAPPのシークレット     
 APP_URL            *本アプリを利用するマシーンのURL     
-CALLBACK           *本アプリを利用するマシーンのURLに/auth/twitter/callbackを追加したもの
-APP_DEBUG          *デバッグモードか本番環境かを設定する開発中以外はfalseにする
-APP_NAME           *アプリケーションの名前(この名前が紐付いている部分は全てこの名前になります)
+CALLBACK           *本アプリを利用するマシーンのURLに/auth/twitter/callbackを追加したもの     
+APP_DEBUG          *デバッグモードか本番環境かを設定する開発中以外はfalseにする     
+APP_NAME           *アプリケーションの名前(この名前が紐付いている部分は全てこの名前になります)      
 
 ## 初期の設定(Docker)
 docker-compose build     
@@ -45,12 +45,17 @@ docker-compose exec app a2enmod rewrite
 docker-compose exec app service apache2 restart    
 docker-compose up -d    
 docker-compose exec app ./composer.phar install    
-docker-compose exec app bash
-./vendor/bin/phinx migrate
+docker-compose exec app bash     
+./vendor/bin/phinx migrate     
 
 
 ## もしエラーフが出た場合
 docker logs -f [コンテナID]
+
+## testing
+```
+./vendor/bin/phpunit --bootstrap tests/bootstrap.php tests
+```
 
 ## License
 MIT

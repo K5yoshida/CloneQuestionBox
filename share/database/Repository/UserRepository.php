@@ -11,6 +11,7 @@ namespace Database\Repository;
 use Database\Models\User;
 use DateTime;
 use Di\UtilContainer;
+use Exception\DatabaseFalseException;
 use PDOException;
 
 class UserRepository
@@ -22,13 +23,14 @@ class UserRepository
      * @param array $accessToken
      * @param \stdClass $userInfo
      */
-    public function createUserData(array $accessToken, $userInfo, $image)
+    public function createUserData(array $accessToken, $userInfo)
     {
         date_default_timezone_set('Asia/Tokyo');
         $time = new DateTime();
         try {
             $userData = User::where('twitter_id', $userInfo->id)->findOne();
             if (!$userData) {
+                $image = $this->getImageUtil()->saveTwitterImage($userInfo->profile_image_url_https);
                 User::create()
                     ->set('twitter_id', $userInfo->id)
                     ->set('username', $userInfo->name)
@@ -45,7 +47,6 @@ class UserRepository
                 $userData
                     ->set('username', $userInfo->name)
                     ->set('screen_name', $userInfo->screen_name)
-                    ->set('user_image', $image)
                     ->set('access_token', $accessToken['oauth_token'])
                     ->set('access_token_secret', $accessToken['oauth_token_secret'])
                     ->set('updated', $time->format('Y-m-d H:i:s'))
@@ -78,11 +79,16 @@ class UserRepository
      * screen_Nameでユーザ情報
      * @param string $screenName
      * @return User
+     * @throws DatabaseFalseException
      */
     public function getUserData(string $screenName): User
     {
         try {
             $userInfo = User::where('screen_name', $screenName)->findOne();
+            if (!($userInfo)) {
+                $this->getLoggerUtil()->setDatabaseLog();
+                throw new DatabaseFalseException('ユーザが存在しませんでした');
+            }
             return $userInfo;
         } catch (PDOException $e) {
             $this->getLoggerUtil()->setDatabaseLog();
@@ -94,7 +100,7 @@ class UserRepository
      * ユーザの情報を更新
      * @param string $userId
      * @param array $array
-     * @todo これだとメールアドレスが存在するか、確認できるようにする
+     * @todo メールアドレスが存在するか、確認できるようにする
      */
     public function updateUserData(string $userId, array $array)
     {
@@ -103,13 +109,13 @@ class UserRepository
         $notification = $array['notification'] ?? null;
         try {
             $userInfo = User::findOne($userId);
-            if($username !== '') {
+            if ($username !== '') {
                 $userInfo->username = $username;
             }
-            if($email !== '') {
+            if ($email !== '') {
                 $userInfo->email = $email;
             }
-            if($notification === 'on') {
+            if ($notification === 'on') {
                 $userInfo->notification_flog = $email;
             }
             $userInfo->save();

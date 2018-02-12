@@ -33,8 +33,8 @@ class LoginController
      */
     public function index(): Response
     {
-            $authUrl = $this->getTwitterService()->createUrl();
-            return $this->app->response->withRedirect($authUrl, 301);
+        $authUrl = $this->getTwitterService()->createUrl();
+        return $this->app->response->withRedirect($authUrl, 301);
     }
 
     /**
@@ -45,22 +45,24 @@ class LoginController
     {
         $getVars = $this->app->request->getQueryParams();
         $accessToken = $this->getTwitterService()->getAccessToken($getVars['oauth_token'], $getVars['oauth_verifier']);
-        $twitterUserInfo = $this->getTwitterService()->getUserInfo($accessToken['oauth_token'],
-            $accessToken['oauth_token_secret']);
-        //Todo このままでは、毎回ログインするたびに画像が保存されてしまう。
-        $image = $this->getImageUtil()->saveTwitterImage($twitterUserInfo->profile_image_url_https);
-        $userId = $this->getUserRepository()->createUserData($accessToken, $twitterUserInfo, $image);
+        $twitterUserInfo = $this->getTwitterService()->getUserInfo($accessToken['oauth_token'], $accessToken['oauth_token_secret']);
+        $userId = $this->getUserRepository()->createUserData($accessToken, $twitterUserInfo);
         $this->getUserSessionUtil()->setUserSession($userId);
         return $this->app->response->withRedirect('/', 301);
     }
 
+    /**
+     * ログアウトの処理をするメソッド
+     * @return Response
+     */
     public function logout(): Response
     {
+        $cookieSessionName = $this->getUserSessionUtil()->getCookieSessionName();
         $_SESSION = array();
-        if (isset($_COOKIE[session_name()])) {
-            setcookie(session_name(), '', time() - 42000, '/');
+        if (isset($cookieSessionName)) {
+            $this->getUserSessionUtil()->setCookieSessionName();
         }
-        session_destroy();
+        $this->getUserSessionUtil()->sessionDestroy();
         return $this->app->response->withRedirect('/', 301);
     }
 }

@@ -47,4 +47,29 @@ class UserSessionUtil
             return false;
         }
     }
+
+    /**
+     * セッション名をクッキーから取得する
+     * @return null | true | false
+     */
+    public function getCookieSessionName()
+    {
+        return $_COOKIE[session_name()];
+    }
+
+    /**
+     * セッション名のクッキーを有効期限の切れたものにする
+     */
+    public function setCookieSessionName()
+    {
+        setcookie(session_name(), '', time() - 42000, '/');
+    }
+
+    /**
+     * セッションを破棄する
+     */
+    public function sessionDestroy()
+    {
+        session_destroy();
+    }
 }

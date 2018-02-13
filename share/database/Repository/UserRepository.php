@@ -43,7 +43,7 @@ class UserRepository
                     ->set('created', $time->format('Y-m-d H:i:s'))
                     ->set('updated', $time->format('Y-m-d H:i:s'))
                     ->save();
-                return User::where('twitter_id', $userInfo->id)->findOne()->id();
+                return User::where('twitter_id', $userInfo->id)->where('delete_flog', 0)->findOne()->id();
             } else {
                 $userData
                     ->set('username', $userInfo->name)
@@ -134,7 +134,7 @@ class UserRepository
     public function deleteUserData(string $userId)
     {
         try {
-            $userInfo = User::findOne($userId);
+            $userInfo = User::where('id', $userId)->where('delete_flog', 0)->findOne();
             if (!$userInfo) {
                 $this->getLoggerUtil()->setDatabaseLog();
                 throw new DatabaseFalseException('ユーザが存在しませんでした');

@@ -56,7 +56,7 @@ class MessageRepository
         try {
             $userInfo = Message::table_alias('c1')
                 ->select_many('c1.*')
-                ->select_many('c2.screen_name')
+                ->select_many('c2.screen_name', 'c2.delete_flog')
                 ->join('users', 'c1.user_id=c2.id', 'c2')
                 ->where('hash', $hash)
                 ->findOne();

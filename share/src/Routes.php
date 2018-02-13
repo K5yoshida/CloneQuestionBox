@@ -10,6 +10,7 @@ use Controller\HomeController;
 use Controller\LoginController;
 use Controller\MessageController;
 use Controller\OptionController;
+use Controller\UnSubscribeController;
 use Controller\UserHomeController;
 
 $slimApp->add($container->get('csrf'));
@@ -28,6 +29,8 @@ $slimApp->get('/auth/twitter/logout', LoginController::class . ':logout');
 $slimApp->post('/{name}/message', MessageController::class . ':index');
 $slimApp->post('/post/{hash}/answer', MessageController::class . ':answerMessagePost');
 $slimApp->post('/user/option/post', OptionController::class . ':post');
+
+$slimApp->post('/user/option/delete', UnSubscribeController::class . ':index');
 
 /**実行部分*/
 $slimApp->run();

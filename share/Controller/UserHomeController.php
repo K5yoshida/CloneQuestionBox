@@ -38,6 +38,9 @@ class UserHomeController
     public function index(Request $request): Response
     {
         $userInfo = $this->getUserRepository()->getUserData($request->getAttribute('name'));
+        if ($userInfo->delete_flog === 1) {
+            return $this->app->view->render($this->app->response, 'error');
+        }
         $name = $request->getAttribute($this->nameKey);
         $value = $request->getAttribute($this->valueKey);
         if ($this->getUserSessionUtil()->loginExist()) {

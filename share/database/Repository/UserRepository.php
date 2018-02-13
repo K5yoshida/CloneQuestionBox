@@ -28,7 +28,7 @@ class UserRepository
         date_default_timezone_set('Asia/Tokyo');
         $time = new DateTime();
         try {
-            $userData = User::where('twitter_id', $userInfo->id)->findOne();
+            $userData = User::where('twitter_id', $userInfo->id)->where('delete_flog', 0)->findOne();
             if (!$userData) {
                 $image = $this->getImageUtil()->saveTwitterImage($userInfo->profile_image_url_https);
                 User::create()
@@ -39,6 +39,7 @@ class UserRepository
                     ->set('access_token', $accessToken['oauth_token'])
                     ->set('access_token_secret', $accessToken['oauth_token_secret'])
                     ->set('notification_flog', 0)
+                    ->set('delete_flog', 0)
                     ->set('created', $time->format('Y-m-d H:i:s'))
                     ->set('updated', $time->format('Y-m-d H:i:s'))
                     ->save();
@@ -85,7 +86,7 @@ class UserRepository
     {
         try {
             $userInfo = User::where('screen_name', $screenName)->findOne();
-            if (!($userInfo)) {
+            if (!$userInfo) {
                 $this->getLoggerUtil()->setDatabaseLog();
                 throw new DatabaseFalseException('ユーザが存在しませんでした');
             }
@@ -119,6 +120,28 @@ class UserRepository
                 $userInfo->notification_flog = $email;
             }
             $userInfo->save();
+        } catch (PDOException $e) {
+            $this->getLoggerUtil()->setDatabaseLog();
+            throw $e;
+        }
+    }
+
+    /**
+     * ユーザのデリートフラグを1にする
+     * @param string $userId
+     * @throws DatabaseFalseException
+     */
+    public function deleteUserData(string $userId)
+    {
+        try {
+            $userInfo = User::findOne($userId);
+            if (!$userInfo) {
+                $this->getLoggerUtil()->setDatabaseLog();
+                throw new DatabaseFalseException('ユーザが存在しませんでした');
+            } else {
+                $userInfo->delete_flog = 1;
+                $userInfo->save();
+            }
         } catch (PDOException $e) {
             $this->getLoggerUtil()->setDatabaseLog();
             throw $e;

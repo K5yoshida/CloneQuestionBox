@@ -37,6 +37,7 @@ class UserTable extends AbstractMigration
             ->addColumn('user_image' , 'string')
             ->addColumn('email', 'string', array('limit' => 50, 'null' => true))
             ->addColumn('notification_flog', 'integer')
+            ->addColumn('delete_flog', 'boolean')
             ->addColumn('created', 'datetime')
             ->addColumn('updated', 'datetime', array('null' => true))
             ->create();

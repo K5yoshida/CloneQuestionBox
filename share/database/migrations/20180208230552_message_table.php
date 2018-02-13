@@ -38,6 +38,7 @@ class MessageTable extends AbstractMigration
             ->addColumn('send_flog', 'integer')
             ->addColumn('created', 'datetime')
             ->addColumn('updated', 'datetime', array('null' => true))
+            ->addIndex(array('hash', 'user_id'), array('unique' => true))
             ->create();
     }
 }

@@ -29,7 +29,7 @@ class UserTable extends AbstractMigration
     public function change()
     {
         $table = $this->table('users');
-        $table->setOptions(['collation'=>'utf8mb4_unicode_ci'])
+        $table->setOptions(array('collation'=>'utf8mb4_unicode_ci'))
             ->addColumn('twitter_id', 'string', array('limit' => 50))
             ->addColumn('access_token', 'string')
             ->addColumn('access_token_secret', 'string')
@@ -41,6 +41,7 @@ class UserTable extends AbstractMigration
             ->addColumn('delete_flog', 'boolean')
             ->addColumn('created', 'datetime')
             ->addColumn('updated', 'datetime', array('null' => true))
+            ->addIndex(array('twitter_id', 'screen_name'))
             ->create();
     }
 }

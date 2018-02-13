@@ -29,7 +29,8 @@ class MessageTable extends AbstractMigration
     public function change()
     {
         $table = $this->table('messages');
-        $table->addColumn('user_id', 'integer')
+        $table->setOptions(['collation'=>'utf8mb4_unicode_ci'])
+            ->addColumn('user_id', 'integer')
             ->addColumn('image_path', 'string')
             ->addColumn('hash', 'string')
             ->addColumn('message_text', 'text')

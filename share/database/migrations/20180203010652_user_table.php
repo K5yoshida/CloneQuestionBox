@@ -29,7 +29,8 @@ class UserTable extends AbstractMigration
     public function change()
     {
         $table = $this->table('users');
-        $table->addColumn('twitter_id', 'string', array('limit' => 50))
+        $table->setOptions(['collation'=>'utf8mb4_unicode_ci'])
+            ->addColumn('twitter_id', 'string', array('limit' => 50))
             ->addColumn('access_token', 'string')
             ->addColumn('access_token_secret', 'string')
             ->addColumn('username', 'string', array('limit' => 50))

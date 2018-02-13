@@ -37,6 +37,11 @@
         </form>
     </div>
     <div class="space"></div>
+    <form action="/user/option/delete" method="post">
+        <input type="hidden" name="{{ $nameKey }}" value="{{ $name }}">
+        <input type="hidden" name="{{ $valueKey }}" value="{{ $value }}">
+        <button name="type" value="image" type="submit" class="setting-button" data-disable-with="送信中">退会する</button>
+    </form>
 @endsection
 
 @section('nvi')

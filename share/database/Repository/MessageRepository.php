@@ -11,6 +11,7 @@ namespace Database\Repository;
 use Database\Models\Message;
 use DateTime;
 use Di\UtilContainer;
+use Exception\DatabaseFalseException;
 use PDOException;
 
 class MessageRepository
@@ -50,6 +51,7 @@ class MessageRepository
      * メッセージをハッシュから取得する
      * @param string $hash
      * @return Message
+     * @throws DatabaseFalseException
      */
     public function getMessage(string $hash): Message
     {
@@ -59,7 +61,12 @@ class MessageRepository
                 ->select_many('c2.screen_name', 'c2.delete_flog')
                 ->join('users', 'c1.user_id=c2.id', 'c2')
                 ->where('hash', $hash)
+                ->where('c2.delete_flog', 0)
                 ->findOne();
+            if (!$userInfo) {
+                $this->getLoggerUtil()->setDatabaseLog();
+                throw new DatabaseFalseException('ユーザが存在しませんでした');
+            }
             return $userInfo;
         } catch (PDOException $e) {
             $this->getLoggerUtil()->setDatabaseLog();

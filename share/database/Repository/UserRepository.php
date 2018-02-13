@@ -85,7 +85,7 @@ class UserRepository
     public function getUserData(string $screenName): User
     {
         try {
-            $userInfo = User::where('screen_name', $screenName)->findOne();
+            $userInfo = User::where('screen_name', $screenName)->where('delete_flog', 0)->findOne();
             if (!$userInfo) {
                 $this->getLoggerUtil()->setDatabaseLog();
                 throw new DatabaseFalseException('ユーザが存在しませんでした');

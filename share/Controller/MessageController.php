@@ -54,9 +54,6 @@ class MessageController
     public function postMessage(Request $request): Response
     {
         $message = $this->getMessageRepository()->getMessage($request->getAttribute('hash'));
-        if ($message->delete_flog === 1) {
-            return $this->app->view->render($this->app->response, 'error');
-        }
         $nameKey = $this->app->csrf->getTokenNameKey();
         $valueKey = $this->app->csrf->getTokenValueKey();
         $loginUserExist = $this->getUserSessionUtil()->loginUserExist($message->user_id);

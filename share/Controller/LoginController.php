@@ -12,6 +12,7 @@ use Di\RepositoryContainer;
 use Di\ServiceContainer;
 use Di\UtilContainer;
 use Slim\Container;
+use Slim\Http\Request;
 use Slim\Http\Response;
 
 class LoginController
@@ -39,11 +40,12 @@ class LoginController
 
     /**
      * twitterで認証された後にコールバックされるメソッド
+     * @param Request $request
      * @return Response
      */
-    public function callback(): Response
+    public function callback(Request $request): Response
     {
-        $getVars = $this->app->request->getQueryParams();
+        $getVars = $request->getQueryParams();
         $accessToken = $this->getTwitterService()->getAccessToken($getVars['oauth_token'], $getVars['oauth_verifier']);
         $twitterUserInfo = $this->getTwitterService()->getUserInfo($accessToken['oauth_token'], $accessToken['oauth_token_secret']);
         $userId = $this->getUserRepository()->createUserData($accessToken, $twitterUserInfo);

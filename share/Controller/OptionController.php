@@ -63,7 +63,7 @@ class OptionController
             return $this->app->view->render($this->app->response, 'error');
         }
         if ($this->getUserSessionUtil()->loginExist()) {
-            $this->getUserRepository()->updateUserData($_SESSION['user_id'], $this->app->request->getParsedBody());
+            $this->getUserRepository()->updateUserData($_SESSION['user_id'], $request->getParsedBody());
             return $this->app->response->withRedirect('/user/option', 301);
         } else {
             return $this->app->response->withRedirect('/', 301);

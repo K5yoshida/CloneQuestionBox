@@ -27,7 +27,7 @@ class ImageUtil
     {
         $image = file_get_contents($imagePath);
         $filename = md5(uniqid(rand(), 1)) . '.jpg';
-        file_put_contents('../public/user/' . $filename, $image);
+        file_put_contents(__DIR__ . '/../public/user/' . $filename, $image);
         $path = getenv('APP_URL') . '/user/' . $filename;
         return $path;
     }

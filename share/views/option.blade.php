@@ -32,6 +32,7 @@
                     <label for="switch1"><span></span></label>
                     <div id="swImg"></div>
                 </div>
+                <div>*現在メール通知機能は利用できません。</div>
             </div>
             <button name="type" value="image" type="submit" class="setting-button" data-disable-with="送信中">決定</button>
         </form>

@@ -98,15 +98,20 @@ class TwitterService
      */
     public function getUserInfo($oauthToken, $oauthTokenSecret)
     {
-        $userConnection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $oauthToken, $oauthTokenSecret);
+        $userConnection = $this->getTwitterOAuth($this->consumerKey, $this->consumerSecret, $oauthToken, $oauthTokenSecret);
         $twitterUserInfo = $userConnection->get('account/verify_credentials');
         return $twitterUserInfo;
     }
 
+    /**
+     * twitterにツイートを送信する
+     * @param array $message
+     * @throws TwitterOAuthException
+     */
     public function postTwit(array $message)
     {
         $userInfo = $this->getUserRepository()->getUserInfo($_SESSION['user_id']);
-        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $userInfo->access_token,
+        $connection = $this->getTwitterOAuth($this->consumerKey, $this->consumerSecret, $userInfo->access_token,
             $userInfo->access_token_secret);
         if ($message['type'] === 'image') {
             $media = $connection->upload('media/upload', ['media' => __DIR__ . '/../public/message/' . $message['path']]);

@@ -24,5 +24,4 @@ $sqlData = $config->getEnvironments();
 ORM::configure("mysql:dbname=test;host={$sqlData['production']['host']};charset=utf8");
 ORM::configure('username', $sqlData['production']['user']);
 ORM::configure('password', $sqlData['production']['pass']);
-
 //ORM::raw_execute('DELETE FROM `device_token`');

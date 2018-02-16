@@ -21,9 +21,11 @@ class TextUtil
         $count = 0;
         $newMessage = '';
         foreach (preg_split("//u", $message, -1, PREG_SPLIT_NO_EMPTY) as $value) {
-            if ($count === 21) {
+            if (20 < $count) {
                 $newMessage .= PHP_EOL;
-                $newMessage .= $value;
+                if ($value !== "\n") {
+                    $newMessage .= $value;
+                }
                 $count = 0;
             } elseif ($value === PHP_EOL) {
                 $newMessage .= $value;

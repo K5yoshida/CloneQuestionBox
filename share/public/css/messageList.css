@@ -17,6 +17,11 @@
 
 .message-time-over {
     background-color: #46edb5;
+    width: 30%;
+    border-radius: 15px;
+    text-align: center;
+    margin: 5px 10px;
+    height: 25px;
 }
 
 .title {

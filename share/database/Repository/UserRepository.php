@@ -64,11 +64,16 @@ class UserRepository
      * User_IdからUser_Infoを取得する
      * @param string $userId
      * @return User
+     * @throws DatabaseFalseException
      */
     public function getUserInfo(string $userId): User
     {
         try {
             $userInfo = User::findOne($userId);
+            if (!$userInfo) {
+                $this->getLoggerUtil()->setDatabaseLog();
+                throw new DatabaseFalseException('ユーザが存在しませんでした');
+            }
             return $userInfo;
         } catch (PDOException $e) {
             $this->getLoggerUtil()->setDatabaseLog();
@@ -110,14 +115,14 @@ class UserRepository
         $notification = $array['notification'] ?? null;
         try {
             $userInfo = User::findOne($userId);
-            if ($username !== '') {
+            if ($username !== '' && $username !== null) {
                 $userInfo->username = $username;
             }
-            if ($email !== '') {
+            if ($email !== '' && $email !== null) {
                 $userInfo->email = $email;
             }
             if ($notification === 'on') {
-                $userInfo->notification_flog = $email;
+                $userInfo->notification_flog = 1;
             }
             $userInfo->save();
         } catch (PDOException $e) {

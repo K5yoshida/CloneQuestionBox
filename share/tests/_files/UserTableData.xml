@@ -1,0 +1,38 @@
+<dataset>
+    <table name="users">
+        <column>id</column>
+        <column>twitter_id</column>
+        <column>access_token</column>
+        <column>access_token_secret</column>
+        <column>username</column>
+        <column>screen_name</column>
+        <column>user_image</column>
+        <column>notification_flog</column>
+        <column>delete_flog</column>
+        <column>created</column>
+        <row>
+            <value>1</value>
+            <value>435096859685938</value>
+            <value>access_token</value>
+            <value>access_token_secret</value>
+            <value>syo</value>
+            <value>Syo_pr</value>
+            <value>http://localhost/user/3e188cc86b6e789b8778d8b7c690b8cf.jpg</value>
+            <value>0</value>
+            <value>0</value>
+            <value>2018-02-13 14:19:34</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>4957439067854683</value>
+            <value>access_token</value>
+            <value>access_token_secret</value>
+            <value>syo2</value>
+            <value>Syo_pr2</value>
+            <value>http://localhost/user/bc33c1fd22151673f6891e2280d8820e.jpg</value>
+            <value>0</value>
+            <value>0</value>
+            <value>2018-02-13 14:44:45</value>
+        </row>
+    </table>
+</dataset>

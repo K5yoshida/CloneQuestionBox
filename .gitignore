@@ -1,6 +1,7 @@
 # 「.DS_Store」や「._.DS_Store」を除外
 *.DS_Store
 .idea/*
+/share/composer.lock
 
 Docker/Mysql/*
 docker-compose.yml
@@ -12,4 +13,5 @@ docker-compose.yml
 /share/public/user/*
 /share/public/message/*
 /share/logs/*
+/share/public/text/*
 !.gitkeep

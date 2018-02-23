@@ -28,10 +28,10 @@
     @yield('content')
     <div class="footer">
         <div class="footer-links">
-            <a href="/" class="footer-link">{{getenv('APP_NAME')}}について</a>
+            <a href="/text/site.html" class="footer-link">{{getenv('APP_NAME')}}について</a>
             <a href="/" class="footer-link">よくある質問</a>
-            <a href="/" class="footer-link">利用規約</a><br/>
-            <a href="/" class="footer-link">プライバシーポリシー</a>
+            <a href="/text/terms.html" class="footer-link">利用規約</a><br/>
+            <a href="/text/privacy.html" class="footer-link">プライバシーポリシー</a>
             <a href="/" class="footer-link">お問い合わせ</a>
             <a href="/" class="footer-link">公式ツイッター</a>
         </div>

@@ -49,7 +49,7 @@ docker-compose exec app bash
 ./vendor/bin/phinx migrate     
 
 
-## もしエラーフが出た場合
+## もしエラーが出た場合
 docker logs -f [コンテナID]
 
 ## testing

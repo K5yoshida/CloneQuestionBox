@@ -1,5 +1,7 @@
 FROM php:7.1-apache
 
+RUN a2enmod rewrite
+
 RUN apt-get update \
   && docker-php-ext-install pdo_mysql mysqli mbstring
 
@@ -14,3 +16,5 @@ RUN apt-get update \
 RUN pecl install imagick && docker-php-ext-enable imagick
 
 ADD 000-default.conf /etc/apache2/sites-available
+ADD security.conf /etc/apache2/conf-available
+ADD php.ini /usr/local/etc/php/

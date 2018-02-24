@@ -55,7 +55,7 @@
         <input type="hidden" name="{{ $valueKey }}" value="{{ $value }}">
         <textarea name="message" class="question-message" required></textarea>
         <div class="question-caution">
-            <a href="/">利用規約</a> <a href="/">プライバシーポリシー</a> に同意の上で利用してください
+            <a href="/text/terms.html">利用規約</a> <a href="/text/privacy.html">プライバシーポリシー</a> に同意の上で利用してください
         </div>
         <button name="button" type="submit" class="question-button" data-disable-with="送信中">質問を送る</button>
     </form>

@@ -47,9 +47,9 @@ class ImageUtil
             $draw = new ImagickDraw();
             $filename = md5(uniqid(rand(), 1)) . '.png';
             $message = $this->getTextUtil()->checkMessageText($message);
-            $stringWidth = $this->getMessageImageWidth(substr_count($message, "\n"));
+            $stringHeight = $this->getMessageImageHeight(substr_count($message, "\n"));
 
-            $messageImage->newImage(550, $stringWidth, new ImagickPixel('white'));
+            $messageImage->newImage(550, $stringHeight, new ImagickPixel('white'));
             $messageImage->setImageFormat('png');
             $messageImage->borderImage('#FFB38A', 25, 0);
 
@@ -88,7 +88,7 @@ class ImageUtil
      * @param int $stringNumber
      * @return int
      */
-    public function getMessageImageWidth(int $stringNumber): int
+    public function getMessageImageHeight(int $stringNumber): int
     {
         $defaultNumber = 200;
         if ($stringNumber < 6) {

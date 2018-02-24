@@ -24,19 +24,19 @@ class ImageUtilTest extends \PHPUnit\Framework\TestCase
          * 改行が5行だった時のテスト
          */
         $imageUtil = new \Util\ImageUtil();
-        $massageImageWidth = $imageUtil->getMessageImageWidth(5);
+        $massageImageWidth = $imageUtil->getMessageImageHeight(5);
         $this->assertSame(200, $massageImageWidth);
 
         /**
          * 改行が6行だった時のテスト
          */
-        $massageImageWidth = $imageUtil->getMessageImageWidth(6);
+        $massageImageWidth = $imageUtil->getMessageImageHeight(6);
         $this->assertSame(225, $massageImageWidth);
 
         /**
          * 改行が10行だった時のテスト
          */
-        $massageImageWidth = $imageUtil->getMessageImageWidth(10);
+        $massageImageWidth = $imageUtil->getMessageImageHeight(10);
         $this->assertSame(325, $massageImageWidth);
     }
 }

@@ -41,7 +41,7 @@ class ImageUtil
     public function makeMessageImage(string $message): string
     {
         try {
-            $head = new Imagick(__DIR__ . '/../resources/img/q-head.png');
+            $header = new Imagick(__DIR__ . '/../resources/img/q-head.png');
             $footer = new Imagick(__DIR__ . '/../resources/img/q-footer.png');
             $messageImage = new Imagick();
             $draw = new ImagickDraw();
@@ -60,16 +60,16 @@ class ImageUtil
             $draw->annotation(0, $metrics['ascender'], $message);
             $messageImage->drawImage($draw);
 
-            $head->addImage($messageImage);
-            $head->setIteratorIndex(0);
-            $headMessage = $head->appendImages(true);
+            $header->addImage($messageImage);
+            $header->setIteratorIndex(0);
+            $headMessage = $header->appendImages(true);
 
             $headMessage->addImage($footer);
             $headMessage->setIteratorIndex(0);
             $mixImage = $headMessage->appendImages(true);
             $mixImage->writeImage(__DIR__ . "/../public/message/$filename");
 
-            $head->destroy();
+            $header->destroy();
             $footer->destroy();
             $messageImage->destroy();
             $draw->destroy();

@@ -35,7 +35,7 @@
             <a href="/" class="footer-link">お問い合わせ</a>
             <a href="/" class="footer-link">公式ツイッター</a>
         </div>
-        <div class="footer-copy">&copy; Syo Yamaguchi</div>
+        <div class="footer-copy">Copyright &copy; replica.tokyo All Rights Reserved by <a href="https://twitter.com/syo_pr">Syo Yamaguchi</a></div>
     </div>
     @yield('nvi')
 </div>

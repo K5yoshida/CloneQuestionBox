@@ -21,7 +21,7 @@
 @endsection
 
 @section('content')
-    @if($flog)
+    @if($flag)
         <div class="box-message">
             これはあなたの{{getenv('APP_NAME')}}です。<br/>
             質問を確認しよう！！！

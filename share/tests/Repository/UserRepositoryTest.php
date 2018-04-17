@@ -61,8 +61,8 @@ class UserRepositoryTest extends TestCase
         $this->assertSame('syo', $userInfo->username);
         $this->assertSame('Syo_pr', $userInfo->screen_name);
         $this->assertSame('http://localhost/user/3e188cc86b6e789b8778d8b7c690b8cf.jpg', $userInfo->user_image);
-        $this->assertSame('0', $userInfo->notification_flog);
-        $this->assertSame('0', $userInfo->delete_flog);
+        $this->assertSame('0', $userInfo->notification_flag);
+        $this->assertSame('0', $userInfo->delete_flag);
         $this->assertSame('2018-02-13 14:19:34', $userInfo->created);
     }
 
@@ -106,8 +106,8 @@ class UserRepositoryTest extends TestCase
         $this->assertSame('syo', $userInfo->username);
         $this->assertSame('Syo_pr', $userInfo->screen_name);
         $this->assertSame('http://localhost/user/3e188cc86b6e789b8778d8b7c690b8cf.jpg', $userInfo->user_image);
-        $this->assertSame('0', $userInfo->notification_flog);
-        $this->assertSame('0', $userInfo->delete_flog);
+        $this->assertSame('0', $userInfo->notification_flag);
+        $this->assertSame('0', $userInfo->delete_flag);
         $this->assertSame('2018-02-13 14:19:34', $userInfo->created);
     }
 
@@ -121,6 +121,11 @@ class UserRepositoryTest extends TestCase
         $userRepository = new UserRepositoryForTest(null, $loggerUtilMock);
         $this->expectException(DatabaseFalseException::class);
         $userRepository->getUserData('Syo');
+    }
+
+    public function testUpdateUserData()
+    {
+
     }
 }
 

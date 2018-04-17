@@ -28,7 +28,7 @@ class UserRepository
         date_default_timezone_set('Asia/Tokyo');
         $time = new DateTime();
         try {
-            $userData = User::where('twitter_id', $userInfo->id)->where('delete_flog', 0)->findOne();
+            $userData = User::where('twitter_id', $userInfo->id)->where('delete_flag', 0)->findOne();
             if (!$userData) {
                 $image = $this->getImageUtil()->saveTwitterImage($userInfo->profile_image_url_https);
                 User::create()
@@ -38,12 +38,12 @@ class UserRepository
                     ->set('user_image', $image)
                     ->set('access_token', $accessToken['oauth_token'])
                     ->set('access_token_secret', $accessToken['oauth_token_secret'])
-                    ->set('notification_flog', 0)
-                    ->set('delete_flog', 0)
+                    ->set('notification_flag', 0)
+                    ->set('delete_flag', 0)
                     ->set('created', $time->format('Y-m-d H:i:s'))
                     ->set('updated', $time->format('Y-m-d H:i:s'))
                     ->save();
-                return User::where('twitter_id', $userInfo->id)->where('delete_flog', 0)->findOne()->id();
+                return User::where('twitter_id', $userInfo->id)->where('delete_flag', 0)->findOne()->id();
             } else {
                 $userData
                     ->set('username', $userInfo->name)
@@ -90,7 +90,7 @@ class UserRepository
     public function getUserData(string $screenName): User
     {
         try {
-            $userInfo = User::where('screen_name', $screenName)->where('delete_flog', 0)->findOne();
+            $userInfo = User::where('screen_name', $screenName)->where('delete_flag', 0)->findOne();
             if (!$userInfo) {
                 $this->getLoggerUtil()->setDatabaseLog();
                 throw new DatabaseFalseException('ユーザが存在しませんでした');
@@ -122,7 +122,7 @@ class UserRepository
                 $userInfo->email = $email;
             }
             if ($notification === 'on') {
-                $userInfo->notification_flog = 1;
+                $userInfo->notification_flag = 1;
             }
             $userInfo->save();
         } catch (PDOException $e) {
@@ -139,12 +139,12 @@ class UserRepository
     public function deleteUserData(string $userId)
     {
         try {
-            $userInfo = User::where('id', $userId)->where('delete_flog', 0)->findOne();
+            $userInfo = User::where('id', $userId)->where('delete_flag', 0)->findOne();
             if (!$userInfo) {
                 $this->getLoggerUtil()->setDatabaseLog();
                 throw new DatabaseFalseException('ユーザが存在しませんでした');
             } else {
-                $userInfo->delete_flog = 1;
+                $userInfo->delete_flag = 1;
                 $userInfo->save();
             }
         } catch (PDOException $e) {

@@ -62,7 +62,7 @@ class MessageControllerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * answerMessageList()とmessageList()はflog以外同じ処理なので、省略
+     * answerMessageList()とmessageList()はflag以外同じ処理なので、省略
      */
     public function testMessageList()
     {

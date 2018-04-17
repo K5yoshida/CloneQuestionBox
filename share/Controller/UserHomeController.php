@@ -41,13 +41,13 @@ class UserHomeController
         $name = $request->getAttribute($this->nameKey);
         $value = $request->getAttribute($this->valueKey);
         if ($this->getUserSessionUtil()->loginExist()) {
-            $flog = $this->getUserSessionUtil()->loginUserExist($userInfo->id);
+            $flag = $this->getUserSessionUtil()->loginUserExist($userInfo->id);
         } else {
-            $flog = false;
+            $flag = false;
         }
         $array = [
             'userInfo' => $userInfo,
-            'flog' => $flog,
+            'flag' => $flag,
             'name' => $name,
             'value' => $value,
             'nameKey' => $this->nameKey,

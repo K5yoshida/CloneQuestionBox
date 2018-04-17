@@ -12,10 +12,10 @@
     <div class="title">あなたに届いたメッセージ<br/></div>
     <div class="message-type-area">
         <div class="message-margin"></div>
-        @if($flog === 0)
+        @if($flag === 0)
             <div class="message-type-no-answer message-type"><a href="/user/message">未解答</a></div>
             <div class="message-type-answer message-type"><a href="/user/message/answer">解答済み</a></div>
-        @elseif($flog === 1)
+        @elseif($flag === 1)
             <div class="message-type-answer message-type"><a href="/user/message">未解答</a></div>
             <div class="message-type-no-answer message-type"><a href="/user/message/answer">解答済み</a></div>
         @endif

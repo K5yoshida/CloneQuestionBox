@@ -78,7 +78,7 @@ class MessageController
             $messageList = $this->getMessageRepository()->getMessageList($_SESSION['user_id'], 0);
             $array = [
                 'messageList' => $messageList,
-                'flog' => 0
+                'flag' => 0
             ];
             return $this->app->view->render($this->app->response, 'messageList', $array);
         } else {
@@ -96,7 +96,7 @@ class MessageController
             $messageList = $this->getMessageRepository()->getMessageList($_SESSION['user_id'], 1);
             $array = [
                 'messageList' => $messageList,
-                'flog' => 1
+                'flag' => 1
             ];
             return $this->app->view->render($this->app->response, 'messageList', $array);
         } else {

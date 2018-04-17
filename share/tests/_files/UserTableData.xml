@@ -7,8 +7,8 @@
         <column>username</column>
         <column>screen_name</column>
         <column>user_image</column>
-        <column>notification_flog</column>
-        <column>delete_flog</column>
+        <column>notification_flag</column>
+        <column>delete_flag</column>
         <column>created</column>
         <row>
             <value>1</value>

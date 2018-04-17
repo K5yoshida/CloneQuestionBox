@@ -25,12 +25,12 @@
 @section('content')
     <div class="name">{{'@' . $message->screen_name}}さんの{{getenv('APP_NAME')}}</div>
     <div class="message-image">
-        @if($message->send_flog == 1)
+        @if($message->send_flag == 1)
             <div>{{$message->answer_text}}</div>
         @endif
         <img src="{{getenv('APP_URL') . '/message/' . $message->image_path}}">
     </div>
-    @if($loginUserExist && $message->send_flog == 0)
+    @if($loginUserExist && $message->send_flag == 0)
     <div class="answer">質問に回答しよう</div>
     <div id="answer-message">
         <form action="/post/{{$message->hash}}/answer" accept-charset="UTF-8" method="post">

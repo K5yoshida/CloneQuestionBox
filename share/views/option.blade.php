@@ -24,7 +24,7 @@
             <div class="setting-switch-area">
                 <div class="setting-switch-label">メール通知の送信</div>
                 <div class="switchArea">
-                    @if($userInfo->notification_flog == 1)
+                    @if($userInfo->notification_flag == 1)
                         <input type="checkbox" id="switch1" name="notification" value="on" checked>
                     @else
                         <input type="checkbox" id="switch1" name="notification" value="on">

@@ -36,7 +36,7 @@ class MessageRepository
                 ->set('image_path', $path)
                 ->set('hash', $hash)
                 ->set('message_text', $message)
-                ->set('send_flog', 0)
+                ->set('send_flag', 0)
                 ->set('created', $time->format('Y-m-d H:i:s'))
                 ->set('updated', $time->format('Y-m-d H:i:s'))
                 ->save();
@@ -58,10 +58,10 @@ class MessageRepository
         try {
             $userInfo = Message::table_alias('c1')
                 ->select_many('c1.*')
-                ->select_many('c2.screen_name', 'c2.delete_flog')
+                ->select_many('c2.screen_name', 'c2.delete_flag')
                 ->join('users', 'c1.user_id=c2.id', 'c2')
                 ->where('hash', $hash)
-                ->where('c2.delete_flog', 0)
+                ->where('c2.delete_flag', 0)
                 ->findOne();
             if (!$userInfo) {
                 $this->getLoggerUtil()->setDatabaseLog();
@@ -77,14 +77,14 @@ class MessageRepository
     /**
      * ユーザに送られてきた質問の一覧
      * @param string $userId
-     * @param int $flog
+     * @param int $flag
      * @return array
      */
-    public function getMessageList(string $userId, int $flog): array
+    public function getMessageList(string $userId, int $flag): array
     {
         try {
             $messageList = Message::where('user_id', $userId)
-                ->where('send_flog', $flog)
+                ->where('send_flag', $flag)
                 ->orderByDesc('id')->findMany();
             return $messageList;
         } catch (PDOException $e) {
@@ -103,9 +103,9 @@ class MessageRepository
     {
         try {
             $message = Message::where('hash', $hash)->findOne();
-            if($this->getUserSessionUtil()->loginUserExist($message->user_id) && ($message !== false) && ($message->send_flog == 0)) {
+            if($this->getUserSessionUtil()->loginUserExist($message->user_id) && ($message !== false) && ($message->send_flag == 0)) {
                 $message->answer_text = $messageText;
-                $message->send_flog = 1;
+                $message->send_flag = 1;
                 $message->save();
                 return $message;
             } else {

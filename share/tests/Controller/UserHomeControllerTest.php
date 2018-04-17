@@ -104,7 +104,7 @@ class BladeForUserHomeController extends Slim\Views\Blade
     {
         $response->getBody()->write($template . ' ' . $data['userInfo']->username . ' ' .
             $data['userInfo']->screen_name . ' ' . $data['userInfo']->user_image . ' ' .
-            $data['name'] . ' ' . $data['value'] . ' ' . $data['nameKey'] . ' ' . $data['valueKey'] . ' ' . (int)$data['flog']);
+            $data['name'] . ' ' . $data['value'] . ' ' . $data['nameKey'] . ' ' . $data['valueKey'] . ' ' . (int)$data['flag']);
         return $response;
     }
 }
